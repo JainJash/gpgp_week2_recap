@@ -7,17 +7,44 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: "$$", right: "$$", display: true},
-        {left: "$",  right: "$",  display: false},
-        {left: "\\(", right: "\\)", display: false},
-        {left: "\\[", right: "\\]", display: true}
-      ],
-      throwOnError: false
-    });
-  });
+  // Replace your current renderMathInElement block with this one
+  (function(){
+    function tryRender(){
+      console.log('katex:', typeof katex, 'renderMathInElement:', typeof renderMathInElement);
+      if (typeof renderMathInElement === 'function') {
+        try {
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$",  right: "$",  display: false},
+              {left: "\\(", right: "\\)", display: false},
+              {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false
+          });
+          console.log('KaTeX auto-render: success');
+        } catch (e) {
+          console.error('KaTeX auto-render: exception', e);
+        }
+        return true;
+      }
+      return false;
+    }
+
+    // Try immediately (deferred scripts should be available before DOMContentLoaded)
+    if (!tryRender()) {
+      // If not available yet, try again on DOMContentLoaded and on window.load
+      document.addEventListener('DOMContentLoaded', function(){
+        if (!tryRender()) {
+          window.addEventListener('load', function(){
+            if (!tryRender()) {
+              console.error('KaTeX auto-render not available after window.load. Check network/CSP/blocking or script URLs.');
+            }
+          });
+        }
+      });
+    }
+  })();
 </script>
 <style>
   /* Bright, student-first aesthetic; ample spacing and readable type */
