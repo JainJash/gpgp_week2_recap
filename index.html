@@ -154,11 +154,12 @@
 
           <details style="margin-top:8px">
             <summary><strong>Why these numbers?</strong></summary>
+            <!-- FIXED: Replaced all LaTeX with plain text/HTML -->
             <div class="hint">
-              $$ \text{EV}(\text{now}) = -11 + 0.01 \times 1000 = -1 \text{ (in } \$M) $$
-              $$ \text{EV}(\text{two-stage}) = -X + 0.1 \times \max(0, 100 - I_2) $$
-              With $I_2=11 \Rightarrow \text{EV} = -X + 0.1 \times 89 \Rightarrow \text{experiment if } X \le \mathbf{8.9} $.
-              If $X=5.5 \Rightarrow -5.5 + 0.1 \times (100 - I_2) \ge 0 \Rightarrow I_2 \le \mathbf{45}$.
+              EV(now) = -11 + 0.01 * 1000 = -1 (in $M)<br>
+              EV(two-stage) = -X + 0.1 * max(0, 100 - I<sub>2</sub>)<br>
+              With I<sub>2</sub>=11 &rArr; EV = -X + 0.1 * 89 &rArr; experiment if X &le; 8.9.<br>
+              If X=5.5 &rArr; -5.5 + 0.1 * (100 - I<sub>2</sub>) &ge; 0 &rArr; I<sub>2</sub> &le; 45.
             </div>
           </details>
         </div>
@@ -255,17 +256,16 @@
 
           <details style="margin-top:8px">
             <summary><strong>Derivation — first principles (broad-based WA)</strong></summary>
+            <!-- FIXED: Replaced all LaTeX with plain text/HTML -->
             <div class="hint">
               <ol>
-                <!-- NOTE: These $ signs are *correct* and will now be rendered by KaTeX -->
-                <li>Let $CP$ be the old conversion price. If the new money $N\$$ had been raised at the old price, it would have issued $N\$/CP$ shares.</li>
-                <li>But we actually issue at $P_{\text{new}}$, so the real new shares are $N\$/P_{\text{new}}$ (more, since $P_{\text{new}}$ is lower).</li>
-                <li>Broad-based WA says: adjust $CP$ to $CP'$ so the investor’s price is the weighted blend:
-                  $$ CP' = CP \times \frac{\text{OS} + \text{OP} + N\$/CP}{\text{OS} + \text{OP} + N\$/P_{\text{new}}} $$
+                <li>Let CP be the old conversion price. If the new money N$ had been raised at the old price, it would have issued N$/CP shares.</li>
+                <li>But we actually issue at P<sub>new</sub>, so the real new shares are N$/P<sub>new</sub> (more, since P<sub>new</sub> is lower).</li>
+                <li>Broad-based WA says: adjust CP to CP' so the investor’s price is the weighted blend:
+                  <br><strong>CP' = CP * ( (OS + OP + N$/CP) / (OS + OP + N$/P<sub>new</sub>) )</strong>
                 </li>
                 <li>The <em>option pool (OP)</em> appears in the denominator because we protect based on a fully-diluted base.</li>
-                <!-- FIXED: Replaced \to with &rarr; -->
-                <li>The adjustment factor is $CP/CP' &rarr;$ multiply prior as-converted shares by this to get the new, larger amount; the difference is the “make-whole” shares.</li>
+                <li>The adjustment factor is CP/CP' &rarr; multiply prior as-converted shares by this to get the new, larger amount; the difference is the “make-whole” shares.</li>
               </ol>
             </div>
           </details>
@@ -280,8 +280,8 @@
             </div>
             <div class="card">
               <div class="pill">Full Ratchet (contrast)</div>
-              <!-- NOTE: These $ signs are *correct* and will now be rendered by KaTeX -->
-              <div class="hint" style="margin:6px 0 10px">Ratchet simply sets $CP' = P_{\text{new}}$. It’s the most protective, hence most dilutive to common.</div>
+              <!-- FIXED: Replaced LaTeX with HTML -->
+              <div class="hint" style="margin:6px 0 10px">Ratchet simply sets CP' = P<sub>new</sub>. It’s the most protective, hence most dilutive to common.</div>
               <table class="table" id="ratTbl"></table>
             </div>
           </div>
