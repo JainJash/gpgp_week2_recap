@@ -676,6 +676,14 @@ function waCalc(){
   setText('#vOP',(+$("#op").value).toFixed(1)); 
   setText('#vN',(+$("#n").value).toFixed(0)); 
   setText('#vPn',Pn.toFixed(2));
+  
+  // FIXED: Added check for UP-ROUND
+  if (Pn >= CP) {
+    $("#waTbl").innerHTML = `<tr><td colspan="2" style="text-align:left;">No adjustment (Up-round)</td></tr>`;
+    $("#ratTbl").innerHTML = `<tr><td colspan="2" style="text-align:left;">No adjustment (Up-round)</td></tr>`;
+    $("#waTakeaway").innerHTML = `<strong>No Anti-Dilution:</strong> The new price ($${Pn.toFixed(2)}) is higher than or equal to the old price ($${CP.toFixed(2)}). Anti-dilution clauses do not trigger.`;
+    return;
+  }
 
   // WA
   const A=OS+OP+(N$/CP), B=OS+OP+(N$/Pn);
@@ -691,7 +699,7 @@ function waCalc(){
     <tr><th>Extra shares</th><td>${fmtM(extra)} M</td></tr>`;
 
   // Ratchet (contrast)
-  const ratCP = Math.min(CP, Pn);
+  const ratCP = Math.min(CP, Pn); // This will just be Pn in a down-round
   const ratAdj = CP/ratCP;
   const ratNewAsConv = OS*ratAdj;
   const ratExtra = ratNewAsConv-OS;
@@ -1546,5 +1554,4 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
 
 </body>
 </html>
-
 
