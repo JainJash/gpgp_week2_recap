@@ -430,8 +430,16 @@
             </label>
             <button class="btn primary" id="nbStart">Start negotiation</button>
           </div>
-
-          <!-- ADDED NEW CONTROLS -->
+          
+          <!-- ADDED: API Key Input -->
+          <div style="margin-top:8px">
+            <label>
+              <span class="pill">Your Gemini API Key (Required)</span>
+              <input type="password" id="nbApiKey" class="w-full" placeholder="Paste your key here to use on GitHub">
+            </label>
+          </div>
+          
+          <!-- Bot Style Controls -->
           <div class="grid" style="grid-template-columns:1fr 1fr; gap:8px; margin-top:8px">
             <label>
               <span class="pill">Bot style</span>
@@ -1096,8 +1104,8 @@ const nbWhy = document.getElementById('nbWhy');
 // function curStyle(){ return STYLE[nbStyleSel.value] || STYLE.balanced; } // Also defined above
 
 // +++++ API AND SCHEMA CONSTANTS +++++
-const apiKey = ""; // Leave blank
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+// REMOVED: const apiKey = "";
+const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=`; // Key will be appended
 
 // Schema for the bot's JSON response
 const RESPONSE_SCHEMA = {
@@ -1138,7 +1146,7 @@ const RESPONSE_SCHEMA = {
 // const REASONS = { ... }; // This is defined in the previous script block
 
 // ===== REWIRED: evaluateProposal to use Generative AI =====
-async function evaluateProposal(botSide, offer, history) {
+async function evaluateProposal(botSide, offer, history, apiKey) { // <-- ADDED apiKey
     // const style = curStyle(); // Defined in previous block
     const brief = BRIEFS[botSide];
     
@@ -1229,8 +1237,9 @@ ${nbWhy.checked ? "Please explain your reasoning in detail." : "What is your res
         // Add exponential backoff for retries
         let response;
         let delay = 1000;
+        const fullApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`; // <-- Use full URL with key
         for (let i = 0; i < 5; i++) {
-            response = await fetch(apiUrl, {
+            response = await fetch(fullApiUrl, { // <-- Use full URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -1292,7 +1301,7 @@ ${nbWhy.checked ? "Please explain your reasoning in detail." : "What is your res
 
 
 // +++++ NEW FUNCTION: Post-Deal Analysis +++++
-async function analyzeDeal(agreedTerms, userRole, botRole) {
+async function analyzeDeal(agreedTerms, userRole, botRole, apiKey) { // <-- ADDED apiKey
     writeChat("System", "<i>Analyst is preparing a post-deal summary...</i>");
 
     const systemPrompt = `
@@ -1337,8 +1346,9 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
     try {
         let response;
         let delay = 1000;
+        const fullApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`; // <-- Use full URL with key
         for (let i = 0; i < 5; i++) {
-            response = await fetch(apiUrl, {
+            response = await fetch(fullApiUrl, { // <-- Use full URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -1400,19 +1410,27 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
   // 2) Rebind with upgraded logic
   nbSendNew.addEventListener('click', async ()=>{ // <-- ASYNC
     if(!game.bot){ writeChat("System","Choose a role and click Start."); return; }
+    
+    // <-- ADDED: Get API key and check if it exists -->
+    const apiKey = document.getElementById('nbApiKey').value;
+    if (!apiKey) {
+        writeChat("System", "<strong>Error:</strong> Please paste your Gemini API Key into the input box to enable the bot.");
+        return;
+    }
+    
     const offer = grabOffer();
     const inv = investorPct(offer.pmv), founders = 1-inv;
     writeChat("YOU", `Offer → PMV ${offer.pmv} (investor ${pctStr(inv)} / founders ${pctStr(founders)}), LP ${offer.lp}, AD ${offer.ad}, Vest ${offer.vest}, Board ${offer.board}, Drag ${offer.drag}, ROFR ${offer.rofr}, Exit ${offer.exit}, No-Shop ${offer.nos}.`);
 
     game.round++;
-    const res = await evaluateProposal(game.bot, offer, game.history); // <-- AWAIT
+    const res = await evaluateProposal(game.bot, offer, game.history, apiKey); // <-- Pass apiKey
     
     if (!res) return; // API call failed
 
     if(res.decision === "ACCEPT"){
       writeChat(game.bot.toUpperCase(), res.narrative);
       renderAgreed(offer); // User's offer was accepted
-      await analyzeDeal(offer, game.you, game.bot); // <-- ADDED THIS CALL
+      await analyzeDeal(offer, game.you, game.bot, apiKey); // <-- Pass apiKey
       return;
     }
     
@@ -1444,6 +1462,13 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
   nbConcedeNew.addEventListener('click', async ()=>{ // <-- ASYNC
     if(!game.bot){ return; } // Added safety check
     
+    // <-- ADDED: Get API key and check if it exists -->
+    const apiKey = document.getElementById('nbApiKey').value;
+    if (!apiKey) {
+        writeChat("System", "<strong>Error:</strong> Please paste your Gemini API Key into the input box to enable the bot.");
+        return;
+    }
+    
     // Grab the current offer from the form
     const offer = grabOffer();
     const botPol = BRIEFS[game.bot].policy;
@@ -1464,14 +1489,14 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
     
     game.round++;
     // Await is now correctly inside the async function
-    const res = await evaluateProposal(game.bot, offer, game.history); 
+    const res = await evaluateProposal(game.bot, offer, game.history, apiKey); // <-- Pass apiKey
 
     if (!res) return; // API call failed
 
     if(res.decision === "ACCEPT"){
       writeChat(game.bot.toUpperCase(), res.narrative);
       renderAgreed(offer);
-      await analyzeDeal(offer, game.you, game.bot); // Await is inside
+      await analyzeDeal(offer, game.you, game.bot, apiKey); // <-- Pass apiKey
       return; 
     } else {
       writeChat(game.bot.toUpperCase(), res.narrative);
@@ -1521,4 +1546,5 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
 
 </body>
 </html>
+
 
