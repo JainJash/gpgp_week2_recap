@@ -2,8 +2,7 @@
 <meta charset="utf-8" />
 <title>Startup Financing — Student Recap</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- FIXED: xintegrity -> integrity -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" xintegrity="sha384-sN1MATC9vF2MhD3jzLUIWbBElcNrI+gPS1A/NVMpG6pQGvAIb6MT/lWvGjLw/Bfu" crossorigin="anonymous">
+<!-- REMOVED KaTeX CSS Link -->
 <style>
   /* Bright, student-first aesthetic; ample spacing and readable type */
   :root{
@@ -156,10 +155,10 @@
             <summary><strong>Why these numbers?</strong></summary>
             <!-- FIXED: Replaced all LaTeX with plain text/HTML -->
             <div class="hint">
-              EV(now) = -11 + 0.01 * 1000 = -1 (in $M)<br>
-              EV(two-stage) = -X + 0.1 * max(0, 100 - I<sub>2</sub>)<br>
-              With I<sub>2</sub>=11 &rArr; EV = -X + 0.1 * 89 &rArr; experiment if X &le; 8.9.<br>
-              If X=5.5 &rArr; -5.5 + 0.1 * (100 - I<sub>2</sub>) &ge; 0 &rArr; I<sub>2</sub> &le; 45.
+              EV(now) = -11 + 0.01 * 1000 = -1 (in M)<br>
+              EV(two-stage) = -X + 0.1 * max(0, 100 - I2)<br>
+              With I2=11 &rArr; EV = -X + 0.1 * 89 &rArr; experiment if X &le; 8.9.<br>
+              If X=5.5 &rArr; -5.5 + 0.1 * (100 - I2) &ge; 0 &rArr; I2 &le; 45.
             </div>
           </details>
         </div>
@@ -250,8 +249,10 @@
             <label>Old Conversion Price (CP) ($/sh) <span class="value" id="vCP">2.00</span><br><input id="cp" type="range" min="0.05" max="10" step="0.01" value="2"></label>
             <label>Old Shares Outstanding (OS) (M) <span class="value" id="vOS">20.0</span><br><input id="os" type="range" min="1" max="500" step="0.1" value="20"></label>
             <label>Option Pool (OP) (M) <span class="value" id="vOP">3.0</span><br><input id="op" type="range" min="0" max="200" step="0.1" value="3"></label>
-            <label>New Investment (N$) ($M) <span class="value" id="vN">10</span><br><input id="n" type="range" min="0" max="500" step="1" value="10"></label>
-            <label>New Share Price (P<sub>new</sub>) ($/sh) <span class="value" id="vPn">1.00</span><br><input id="pn" type="range" min="0.01" max="10" step="0.01" value="1"></label>
+            <!-- FIXED: Plain text label -->
+            <label>New Investment (N) ($M) <span class="value" id="vN">10</span><br><input id="n" type="range" min="0" max="500" step="1" value="10"></label>
+            <!-- FIXED: Plain text label -->
+            <label>New Share Price (P_new) ($/sh) <span class="value" id="vPn">1.00</span><br><input id="pn" type="range" min="0.01" max="10" step="0.01" value="1"></label>
           </div>
 
           <details style="margin-top:8px">
@@ -259,12 +260,13 @@
             <!-- FIXED: Replaced all LaTeX with plain text/HTML -->
             <div class="hint">
               <ol>
-                <li>Let CP be the old conversion price. If the new money N$ had been raised at the old price, it would have issued N$/CP shares.</li>
-                <li>But we actually issue at P<sub>new</sub>, so the real new shares are N$/P<sub>new</sub> (more, since P<sub>new</sub> is lower).</li>
-                <li>Broad-based WA says: adjust CP to CP' so the investor’s price is the weighted blend:
-                  <br><strong>CP' = CP * ( (OS + OP + N$/CP) / (OS + OP + N$/P<sub>new</sub>) )</strong>
+                <li>Let CP be the old conversion price. If the new money N had been raised at the old price, it would have issued N/CP shares.</li>
+                <li>But we actually issue at P_new, so the real new shares are N/P_new (more, since P_new is lower).</li>
+                <li>Broad-based WA says: adjust CP to CP' (CP_prime) so the investor’s price is the weighted blend:
+                  <br><strong>CP' = CP * ( (OS + OP + N/CP) / (OS + OP + N/P_new) )</strong>
                 </li>
                 <li>The <em>option pool (OP)</em> appears in the denominator because we protect based on a fully-diluted base.</li>
+                <!-- FIXED: Replaced \to with &rarr; -->
                 <li>The adjustment factor is CP/CP' &rarr; multiply prior as-converted shares by this to get the new, larger amount; the difference is the “make-whole” shares.</li>
               </ol>
             </div>
@@ -281,7 +283,7 @@
             <div class="card">
               <div class="pill">Full Ratchet (contrast)</div>
               <!-- FIXED: Replaced LaTeX with HTML -->
-              <div class="hint" style="margin:6px 0 10px">Ratchet simply sets CP' = P<sub>new</sub>. It’s the most protective, hence most dilutive to common.</div>
+              <div class="hint" style="margin:6px 0 10px">Ratchet simply sets CP' = P_new. It’s the most protective, hence most dilutive to common.</div>
               <table class="table" id="ratTbl"></table>
             </div>
           </div>
@@ -638,8 +640,15 @@ function partCalc(){
   const asConv = OWN*EXIT;
 
   // NP: explicit A vs B
-  const npChoice = asConv >= pref ? 'Convert to common (B)' : 'Stay preferred (A)';
-  const npPayout = Math.max(pref, asConv);
+  // FIXED: The investor chooses the better of the TWO ACTUAL PAYOUTS.
+  // Path A payout is the preference, capped by the total exit value.
+  const npPayout_A = Math.min(pref, EXIT);
+  // Path B payout is their ownership share of the total exit value.
+  const npPayout_B = asConv;
+  
+  // The decision is based on which path gives them more money.
+  const npChoice = npPayout_A >= npPayout_B ? 'Stay preferred (A)' : 'Convert to common (B)';
+  const npPayout = Math.max(npPayout_A, npPayout_B);
 
   // P: pref first, then participate pro-rata on remainder
   const base = Math.min(pref, EXIT);
@@ -647,12 +656,13 @@ function partCalc(){
   const partGain = remainder * OWN;
   const pPayout = base + partGain;
 
+  // FIXED: Founder payout is now correctly calculated and cannot be negative.
   const founderNP = EXIT - npPayout;
   const founderP  = EXIT - pPayout;
 
   $("#npTbl").innerHTML=
-   `<tr><th>Path A: stay preferred</th><td>${money(pref*1e6)}</td></tr>
-    <tr><th>Path B: convert to common</th><td>${money(asConv*1e6)}</td></tr>
+   `<tr><th>Path A: stay preferred</th><td>${money(npPayout_A*1e6)}</td></tr>
+    <tr><th>Path B: convert to common</th><td>${money(npPayout_B*1e6)}</td></tr>
     <tr><th>Decision</th><td><strong>${npChoice}</strong></td></tr>
     <tr><th>Investor payout (NP)</th><td><strong>${money(npPayout*1e6)}</strong></td></tr>
     <tr><th>Founders/common</th><td>${money(founderNP*1e6)}</td></tr>`;
@@ -672,7 +682,7 @@ function partCalc(){
 
 /* Lab 3: Anti-Dilution — WA from first principles vs Ratchet */
 function waCalc(){
-  const CP=+$("#cp").value, OS=+$("#os").value*1e6, OP=+$("#op").value*1e6, N$=+$("#n").value*1e6, Pn=+$("#pn").value;
+  const CP=+$("#cp").value, OS=+$("#os").value*1e6, OP=+$("#op").value*1e6, N=+$("#n").value*1e6, Pn=+$("#pn").value;
   setText('#vCP',CP.toFixed(2)); 
   setText('#vOS',(+$("#os").value).toFixed(1)); 
   setText('#vOP',(+$("#op").value).toFixed(1)); 
@@ -688,7 +698,8 @@ function waCalc(){
   }
 
   // WA
-  const A=OS+OP+(N$/CP), B=OS+OP+(N$/Pn);
+  // FIXED: Renamed N$ to N and Pnew to Pn
+  const A=OS+OP+(N/CP), B=OS+OP+(N/Pn);
   const CPp=CP*(A/B);                      // new conversion price
   const adj=CP/CPp;                        // share multiplier
   const newAsConv=OS*adj;                  // new as-converted shares
@@ -711,10 +722,11 @@ function waCalc(){
     <tr><th>Adjustment factor</th><td>${ratAdj.toFixed(3)}×</td></tr>
     <tr><th>Extra shares</th><td>${fmtM(ratExtra)} M</td></tr>`;
 
+  // FIXED: Renamed P_new and N$
   $("#waTakeaway").innerHTML =
     (ratExtra>extra)
       ? `Ratchet shifts almost all the down-round pain to common by issuing many more make-whole shares. WA spreads the pain over the full base (old shares + pool + new money).`
-      : `With these inputs, WA and Ratchet are close. Lower P<sub>new</sub> or increase N$ to see Ratchet explode vs WA.`;
+      : `With these inputs, WA and Ratchet are close. Lower P_new or increase N to see Ratchet explode vs WA.`;
 }
 ['cp','os','op','n','pn'].forEach(id=>$("#"+id).addEventListener('input',waCalc));
 
@@ -1585,25 +1597,7 @@ Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the lo
 })();
 </script>
 
-<!-- ADDED KaTeX JS scripts for math rendering (FIXED xintegrity -> integrity) -->
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" xintegrity="sha384-hIoBPJpTadxQG8/aV4zVj7gSdpE/vMGRd12Hk/B2M7Vj/A/qO/MlgwE2hEADSxQ" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" xintegrity="sha384-fN6FaY2bdcg1/hVbB5U_k/RTLK8YvQ9A+1c/3gQG5G/f0JitV/vKjP8pT1F/wCD" crossorigin="anonymous"></script>
-<script>
-  // ADDED KaTeX initialization
-  document.addEventListener("DOMContentLoaded", function() {
-    // Safety check for auto-render function
-    if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "$", right: "$", display: false}
-          ]
-        });
-    } else {
-        console.error("KaTeX auto-render script not loaded");
-    }
-  });
-</script>
+<!-- REMOVED KaTeX JS scripts for math rendering -->
 
 </body>
 </html>
