@@ -724,9 +724,60 @@ const QUIZ=[
   {q:"WA vs Ratchet:",options:["WA punishes more","Ratchet issues more make-whole shares","Identical","Neither changes conversion"],correct:1},
   {q:"Drag-along is about…",options:["Blocking exits","Exit execution certainty","Pricing secondaries","IPO thresholds"],correct:1}
 ];
-function buildQuiz(){const qa=$("#quizArea"); qa.innerHTML=''; QUIZ.forEach((q,i)=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div><strong>${q.q}</strong></div><div>${q.options.map((op,j)=>`<label style="display:block;margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer"><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')}</div>`; qa.appendChild(d)}); $("#submitQuiz").disabled=false; $("#quizScore").textContent=''}
+// MODIFIED: buildQuiz now resets the Start button text
+function buildQuiz(){
+  const qa=$("#quizArea"); 
+  qa.innerHTML=''; 
+  QUIZ.forEach((q,i)=>{
+    const d=document.createElement('div'); 
+    d.className='card'; 
+    d.innerHTML=`<div><strong>${q.q}</strong></div><div>${q.options.map((op,j)=>`<label style="display:block;margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer"><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')}</div>`; 
+    qa.appendChild(d)
+  }); 
+  $("#submitQuiz").disabled=false; 
+  $("#quizScore").textContent='';
+  $("#startQuiz").textContent = "Start"; // Reset button text
+}
 $("#startQuiz").onclick=buildQuiz;
-$("#submitQuiz").onclick=()=>{let score=0; QUIZ.forEach((q,i)=>{const c=[...document.querySelectorAll(`input[name="q${i}"]`)].find(r=>r.checked); if(c && +c.value===q.correct) score++}); $("#quizScore").textContent=`Score: ${score}/${QUIZ.length}`; $("#submitQuiz").disabled=true}
+// MODIFIED: submitQuiz now highlights answers
+$("#submitQuiz").onclick=()=>{
+  let score=0; 
+  // Disable all inputs after submission
+  document.querySelectorAll('#quizArea input[type="radio"]').forEach(input => {
+      input.disabled = true;
+  });
+
+  QUIZ.forEach((q,i)=>{
+      const selectedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+      const allOptionsForQ = document.querySelectorAll(`input[name="q${i}"]`);
+      
+      allOptionsForQ.forEach(radio => {
+          const label = radio.parentElement;
+          const isCorrect = (parseInt(radio.value) === q.correct);
+          const isSelected = radio.checked;
+
+          if (isCorrect) {
+              // This is the correct answer
+              label.style.background = '#dcfce7'; // green
+              label.style.borderColor = '#4ade80';
+          }
+          
+          if (isSelected && !isCorrect) {
+              // This is the one the user selected, and it's wrong
+              label.style.background = '#fee2e2'; // red
+              label.style.borderColor = '#f87171';
+          }
+      });
+
+      if(selectedRadio && +selectedRadio.value === q.correct) {
+          score++;
+      }
+  }); 
+  
+  $("#quizScore").textContent=`Score: ${score}/${QUIZ.length}`; 
+  $("#submitQuiz").disabled=true;
+  $("#startQuiz").textContent = "Try again"; // Change start button to "Try again"
+}
 
 /* Search */
 function doSearch(){
