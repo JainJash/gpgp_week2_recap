@@ -1,0 +1,1524 @@
+<head>
+<meta charset="utf-8" />
+<title>Startup Financing — Student Recap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- FIXED: xintegrity -> integrity -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" xintegrity="sha384-sN1MATC9vF2MhD3jzLUIWbBElcNrI+gPS1A/NVMpG6pQGvAIb6MT/lWvGjLw/Bfu" crossorigin="anonymous">
+<style>
+  /* Bright, student-first aesthetic; ample spacing and readable type */
+  :root{
+    --bg:#fafbff; --paper:#ffffff; --ink:#0b1221; --muted:#616b7c;
+    --brand:#2f63ff; --brand2:#14b886; --warn:#e11d48; --line:#e8eaf2;
+    --chip:#eef2ff; --soft:#f7f9ff; --ring:0 0 0 3px rgba(47,99,255,.12);
+    --shadow:0 10px 34px rgba(2,12,44,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--ink);
+    background:
+      radial-gradient(60rem 40rem at -10% -10%, #e6f0ff4a, transparent 60%),
+      radial-gradient(60rem 40rem at 110% -10%, #fff1db55, transparent 60%),
+      linear-gradient(180deg,#fcfeff,#f5f7fb 58%,#f2f4f9);
+    font:16px/1.68 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  }
+  .app{display:grid;grid-template-columns:320px 1fr;min-height:100vh}
+  aside{background:var(--paper);border-right:1px solid var(--line);padding:18px;position:sticky;top:0;height:100vh;overflow:auto}
+  main{padding:18px 18px 52px}
+  h1{font-size:22px;margin:0 0 6px}
+  h2{font-size:20px;margin:0 0 12px}
+  h3{font-size:17px;margin:0 0 8px}
+  .subtitle{color:var(--muted);font-size:13px;margin-bottom:14px}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px}
+  .grid{display:grid;gap:14px}
+  .two{grid-template-columns:1fr 1fr}
+  .three{grid-template-columns:1fr 1fr 1fr}
+  @media (max-width:1180px){.two,.three{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+  .btn{background:#fff;border:1px solid var(--line);padding:10px 12px;border-radius:12px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink)}
+  .btn:focus{outline:none;box-shadow:var(--ring)} .btn.primary{border-color:var(--brand);color:#1847ff}
+  .btn.small{padding:6px 8px;font-size:13px;border-radius:10px}
+  .menu{display:grid;gap:8px}
+  .menu .item{padding:10px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;box-shadow:var(--shadow)}
+  .stepper{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .step{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:var(--shadow);cursor:pointer}
+  .step .dot{width:20px;height:20px;border-radius:50%;background:#e6ebff;display:grid;place-items:center;font-size:12px}
+  .active{box-shadow:var(--ring)} .active .dot{background:var(--brand);color:#fff}
+  .progress{height:10px;background:#f2f5ff;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0%}
+  .pill{font-size:11px;padding:4px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--line);color:#334155}
+  .callout{background:linear-gradient(180deg,#fff,#f7f9ff);border:1px solid var(--line);border-left:4px solid var(--brand);padding:12px;border-radius:12px}
+  .hint{font-size:13px;color:#475569}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden}
+  .table th,.table td{border-bottom:1px solid var(--line);padding:10px;text-align:right}
+  .table th:first-child,.table td:first-child{text-align:left}
+  .ok{color:var(--brand2)} .bad{color:var(--warn)}
+  .value{min-width:64px;display:inline-block;text-align:right;color:#1847ff;font-weight:600}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#e9ecf4;border-radius:6px}
+  input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--brand);box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer;border:none}
+  .story{position:relative;padding-left:18px}
+  .story:before{content:"";position:absolute;left:6px;top:4px;bottom:4px;border-left:2px dashed #d1d6e6}
+  .beat{position:relative;margin:8px 0;padding-left:16px}
+  .beat:before{content:"";position:absolute;left:-2px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+  .tag{display:inline-flex;gap:6px;padding:4px 10px;background:#ecfeff;border:1px solid #bae6fd;border-radius:999px;color:#026aa7;font-size:12px}
+  .soft{background:#fafcff}
+  .kbd{border:1px solid var(--line);border-radius:6px;padding:2px 6px;font-size:12px;background:#f8fafc}
+  
+  /* Simple select styling for negotiator */
+  select.w-full, input.w-full {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background-color: var(--paper);
+    font-family: inherit;
+    font-size: 14px;
+  }
+  input.w-full[disabled] {
+    background-color: var(--soft);
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>Startup Financing — Student Recap</h1>
+    <div class="subtitle">Guided pathway • three labs • real stories</div>
+
+    <div class="menu" id="nav"></div>
+
+    <div style="margin-top:12px"><strong>Tools</strong>
+      <div class="menu">
+        <div class="item" data-go="glossary">Glossary (24)</div>
+        <div class="item" data-go="quiz">Quick Quiz</div>
+        <div class="item" data-go="search">Search</div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- stepper -->
+    <div class="panel" style="margin-bottom:14px">
+      <div class="stepper" id="stepper"></div>
+      <div class="progress"><span id="barProgress"></span></div>
+    </div>
+
+    <!-- How to use -->
+    <section class="panel" id="s-overview">
+      <h2>How to use this recap</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>1) Read the Scenario</h3>
+          <p class="muted">Each lab begins with a short story of “what’s going on” — so you’re not guessing inputs.</p>
+          <h3>2) Try the Preset</h3>
+          <p class="muted">We start from a <em>sensible</em> preset. Move at most one slider at a time and watch the side-by-side tables change.</p>
+          <h3>3) Learn the Why</h3>
+          <p class="muted">Under “Why these numbers?”, we show the algebra and the intuition in words first, math second.</p>
+        </div>
+        <div class="card">
+          <h3>Path</h3>
+          <ol>
+            <li>Staging (Real Options)</li>
+            <li>Participation (Non-Participating vs Participating)</li>
+            <li>Anti-Dilution (Weighted-Average vs Full Ratchet)</li>
+            <li>Stories: PharmEasy (down-round) & Shaadi.com (drag-along)</li>
+            <!-- MODIFIED: Replaced LaTeX arrow with HTML entity -->
+            <li>Quick glossary &rArr; Quiz</li>
+          </ol>
+          <div class="callout">Tip: Look for the green numbers — they tell you where value is improving.</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn primary" data-next="#s-staging">Start the labs</button></div>
+    </section>
+
+    <!-- Lab 1: Staging -->
+    <section class="panel" id="s-staging">
+      <h2>Lab 1 — Staging: when “experiment first” is rational</h2>
+      <div class="grid two">
+        <div class="card soft">
+          <h3>Scenario</h3>
+          <!-- CORRECTED: Replaced LaTeX notations with plain text/HTML entities -->
+          <p>If you spend <strong>11M now</strong>, success is <strong>1%</strong> for a <strong>$1B</strong> payoff &rArr; EV = -$1M (not worth it).</p>
+          <!-- MODIFIED: Removed all stray $ and \% signs from plain text -->
+          <p>Alternative: run a small <strong>experiment</strong> first. Pay <strong>X</strong> with a 10% chance of success. Only if the experiment works, you consider the larger cheque (now success is 10% for $1B). Overall success remains 1%.</p>
+
+          <div class="grid">
+            <label>Experiment cost X (M) <span class="value" id="xVal">5.5</span><br>
+              <input type="range" id="x" min="0" max="12" step="0.1" value="5.5">
+            </label>
+            <label>Stage-2 spend I₂ (M) <span class="value" id="i2Val">11</span><br>
+              <input type="range" id="i2" min="0" max="60" step="0.5" value="11">
+            </label>
+          </div>
+
+          <details style="margin-top:8px">
+            <summary><strong>Why these numbers?</strong></summary>
+            <div class="hint">
+              $$ \text{EV}(\text{now}) = -11 + 0.01 \times 1000 = -1 \text{ (in } \$M) $$
+              $$ \text{EV}(\text{two-stage}) = -X + 0.1 \times \max(0, 100 - I_2) $$
+              With $I_2=11 \Rightarrow \text{EV} = -X + 0.1 \times 89 \Rightarrow \text{experiment if } X \le \mathbf{8.9} $.
+              If $X=5.5 \Rightarrow -5.5 + 0.1 \times (100 - I_2) \ge 0 \Rightarrow I_2 \le \mathbf{45}$.
+            </div>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3>Side-by-side</h3>
+          <div class="compare">
+            <div class="card">
+              <div class="pill">All-in now</div>
+              <table class="table">
+                <tr><th>Spend</th><td>$11M</td></tr>
+                <tr><th>Success prob</th><td>1%</td></tr>
+                <tr><th>Payoff if success</th><td>$1B</td></tr>
+                <tr><th>EV</th><td id="evNow"></td></tr>
+              </table>
+            </div>
+            <div class="card">
+              <div class="pill">Experiment $\to$ then decide</div>
+              <table class="table">
+                <tr><th>X</th><td id="tX"></td></tr>
+                <tr><th>I₂ (if experiment works)</th><td id="tI2"></td></tr>
+                <tr><th>P(success overall)</th><td>1%</td></tr>
+                <tr><th>EV</th><td id="evStaged"></td></tr>
+              </table >
+            </div>
+          </div>
+          <div id="stagingVerdict" class="callout" style="margin-top:10px"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn primary" data-next="#s-part">Next: Participation</button></div>
+    </section>
+
+    <!-- Lab 2: Participation (no cap; explicit NP choice) -->
+    <section class="panel" id="s-part">
+      <h2>Lab 2 — Participation: Non-Participating vs Participating</h2>
+      <div class="grid two">
+        <div class="card soft">
+          <h3>Scenario</h3>
+          <!-- MODIFIED: Replaced LaTeX with HTML entities for plain text -->
+          <p>You raised a preferred round at <strong>1&times;</strong>. Investor owns <strong>20%</strong>. Compare <strong>Non-Participating</strong> (NP) with <strong>Participating</strong> (P).</p>
+          <div class="grid">
+            <label>Investment ($M) <span class="value" id="vI">10</span><br><input id="i" type="range" min="0" max="200" step="1" value="10"></label>
+            <label>Pref multiple ($\times$) <span class="value" id="vM">1.0</span><br><input id="m" type="range" min="0" max="5" step="0.5" value="1"></label>
+            <label>Ownership (%) <span class="value" id="vOwn">20%</span><br><input id="own" type="range" min="0" max="100" step="1" value="20"></label>
+            <label>Exit ($M) <span class="value" id="vExit">150</span><br><input id="exit" type="range" min="0" max="1500" step="5" value="150"></label>
+          </div>
+
+          <details style="margin-top:8px">
+            <summary><strong>How to read NP vs P</strong></summary>
+            <div class="hint">
+              <strong>NP</strong> means the investor chooses one of two paths at exit:<br>
+              (A) <em>Stay preferred</em> and take the liquidation preference (multiple &times; investment), or<br>
+              (B) <em>Convert to common</em> and take ownership% &times; exit.<br>
+              They pick the larger amount.<br><br>
+              <strong>P</strong> means: take the preference first, then also participate pro-rata with common on whatever remains.
+            </div>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3>Side-by-side</h3>
+          <div class="compare">
+            <div class="card">
+              <div class="pill">Non-Participating (choose better of A or B)</div>
+              <table class="table" id="npTbl"></table>
+            </div>
+            <div class="card">
+              <div class="pill">Participating</div>
+              <table class="table" id="pTbl"></table>
+            </div>
+          </div>
+          <div id="partTakeaway" class="callout" style="margin-top:10px"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn primary" data-next="#s-wa">Next: Anti-Dilution</button></div>
+    </section>
+
+    <!-- Lab 3: Anti-Dilution (first principles) -->
+    <section class="panel" id="s-wa">
+      <h2>Lab 3 — Anti-Dilution: Weighted-Average vs Full Ratchet</h2>
+      <div class="grid two">
+        <div class="card soft">
+          <h3>Scenario</h3>
+          <p>You raise a new round <em>below</em> the old conversion price. We’ll build WA from first principles, then contrast with Ratchet.</p>
+
+          <div class="grid">
+            <label>Old Conversion Price (CP) ($/sh) <span class="value" id="vCP">2.00</span><br><input id="cp" type="range" min="0.05" max="10" step="0.01" value="2"></label>
+            <label>Old Shares Outstanding (OS) (M) <span class="value" id="vOS">20.0</span><br><input id="os" type="range" min="1" max="500" step="0.1" value="20"></label>
+            <label>Option Pool (OP) (M) <span class="value" id="vOP">3.0</span><br><input id="op" type="range" min="0" max="200" step="0.1" value="3"></label>
+            <label>New Investment (N$) ($M) <span class="value" id="vN">10</span><br><input id="n" type="range" min="0" max="500" step="1" value="10"></label>
+            <label>New Share Price (P<sub>new</sub>) ($/sh) <span class="value" id="vPn">1.00</span><br><input id="pn" type="range" min="0.01" max="10" step="0.01" value="1"></label>
+          </div>
+
+          <details style="margin-top:8px">
+            <summary><strong>Derivation — first principles (broad-based WA)</strong></summary>
+            <div class="hint">
+              <ol>
+                <!-- NOTE: These $ signs are *correct* and will now be rendered by KaTeX -->
+                <li>Let $CP$ be the old conversion price. If the new money $N\$$ had been raised at the old price, it would have issued $N\$/CP$ shares.</li>
+                <li>But we actually issue at $P_{\text{new}}$, so the real new shares are $N\$/P_{\text{new}}$ (more, since $P_{\text{new}}$ is lower).</li>
+                <li>Broad-based WA says: adjust $CP$ to $CP'$ so the investor’s price is the weighted blend:
+                  $$ CP' = CP \times \frac{\text{OS} + \text{OP} + N\$/CP}{\text{OS} + \text{OP} + N\$/P_{\text{new}}} $$
+                </li>
+                <li>The <em>option pool (OP)</em> appears in the denominator because we protect based on a fully-diluted base.</li>
+                <!-- MODIFIED: Replaced LaTeX arrow with HTML entity -->
+                <li>The adjustment factor is $CP/CP' \to$ multiply prior as-converted shares by this to get the new, larger amount; the difference is the “make-whole” shares.</li>
+              </ol>
+            </div>
+          </details>
+        </div>
+
+        <div class="card">
+          <h3>Side-by-side outcomes</h3>
+          <div class="compare">
+            <div class="card">
+              <div class="pill">Weighted-Average (broad-based)</div>
+              <table class="table" id="waTbl"></table>
+            </div>
+            <div class="card">
+              <div class="pill">Full Ratchet (contrast)</div>
+              <!-- NOTE: These $ signs are *correct* and will now be rendered by KaTeX -->
+              <div class="hint" style="margin:6px 0 10px">Ratchet simply sets $CP' = P_{\text{new}}$. It’s the most protective, hence most dilutive to common.</div>
+              <table class="table" id="ratTbl"></table>
+            </div>
+          </div>
+          <div id="waTakeaway" class="callout" style="margin-top:10px"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn primary" data-next="#s-stories">Next: Real stories</button></div>
+    </section>
+
+<!-- 5. Stories -->
+<section class="panel" id="s-stories">
+  <h2>Stories: Term Sheet Implications in Practice</h2>
+
+  <div class="grid two">
+    <!-- PharmEasy / Thyrocare -->
+    <div class="card">
+      <h3>Story 1: Down-Rounds & Anti-Dilution</h3>
+      <div class="hint" style="margin-bottom:8px"><strong>Context: PharmEasy's 2023-24 Funding</strong></div>
+      <div class="story">
+        <div class="beat"><span class="tag">June 2021 — Acquisition</span>
+          API Holdings (PharmEasy’s parent) bought ~66% of Thyrocare for about ₹4,546 crore to combine diagnostics with its online pharmacy.
+        </div>
+        <div class="beat"><span class="tag">How it was funded</span>
+          The deal used significant borrowings, with Thyrocare shares pledged as collateral.
+        </div>
+        <div class="beat"><span class="tag">2023–2024 — Tough market</span>
+          Funding conditions tightened, IPO windows narrowed, growth took longer than expected, and refinancing needs came due.
+        </div>
+        <div class="beat"><span class="tag">Rights issue & deleveraging</span>
+          The company raised equity at a steep discount to reduce debt and keep operations funded.
+        </div>
+        <!-- ADDED: Definition of Rights Issue -->
+        <div class="beat"><span class="tag">What's a "Rights Issue"?</span>
+          This is an offer to existing shareholders to buy new shares, usually at a discount. It's a way to raise capital from "insiders" first.
+        </div>
+        <div class="beat"><span class="tag">2025 — Further actions</span>
+          It issued new NCDs (secured by a portion of Thyrocare shares) and also sold a part of its Thyrocare stake for cash, lowering its holding.
+        </div>
+        <!-- UPDATED: Callout text -->
+        <div class="callout">
+          <strong>Term Sheet Implication:</strong> This is where <strong>Anti-Dilution (Lab 3)</strong> becomes critical. Investors *with* anti-dilution (like 'Weighted Average' or 'Full Ratchet') were protected; their contracts automatically gave them more shares to compensate for the lower price. However, investors *without* anti-dilution protection would need to participate (i.e., invest more money) in the rights issue just to protect their ownership percentage from being severely diluted by the new, discounted shares.
+        </div>
+      </div>
+    </div>
+
+    <!-- Shaadi.com / WestBridge -->
+    <div class="card">
+      <h3>Story 2: Exit Rights & Drag-Along</h3>
+      <div class="hint" style="margin-bottom:8px"><strong>Context: Shaadi.com & Investor Exit</strong></div>
+      <div class="story">
+        <div class="beat"><span class="tag">2006 — Investment</span>
+          WestBridge invested ~₹166 crore with a shareholders’ agreement that set exit options (IPO within a time frame, sale of investor shares, buyback, and drag-along if an exit didn’t happen).
+        </div>
+        <div class="beat"><span class="tag">Exit clauses in practice</span>
+          When timelines slipped, the documents allowed a third-party sale; if that didn’t close, drag-along could be used to complete an exit backed by the majority.
+        </div>
+        <div class="beat"><span class="tag">Buyer discussions</span>
+          One proposed buyer was a direct competitor in online matrimony (Info Edge/Jeevansathi), raising questions about valuation, timing, and selling to a rival.
+        </div>
+        <div class="beat"><span class="tag">Dispute & forums</span>
+          Disagreements over exit and enforcement moved across jurisdictions—arbitration in Singapore on one side and Indian company-law remedies (NCLT/NCLAT) on the other.
+        </div>
+        <div class="callout">
+          <strong>Term Sheet Implication:</strong> This highlights the power of <strong>Drag-Along Rights</strong>. This clause gives investors a contractual path to an exit by forcing all shareholders (including founders) to sell the company if a majority-approved deal is on the table. It's the ultimate tool for 'exit certainty' and a key point of negotiation (as seen in the Bot).
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Glossary — Flip Flashcards -->
+<section class="panel" id="s-glossary">
+  <h2>Glossary — Flip Flashcards</h2>
+
+  <div class="grid two">
+    <div class="card">
+      <!-- Controls -->
+      <div class="grid" style="grid-template-columns:auto auto auto 1fr auto; gap:8px; align-items:center;">
+        <button class="btn small" id="gPrev">← Prev</button>
+        <button class="btn small" id="gFlip">Flip (F)</button>
+        <button class="btn small" id="gNext">Next →</button>
+        <label class="hint" style="display:flex;gap:6px;align-items:center;">
+          <input type="checkbox" id="gShuffle"> Shuffle
+        </label>
+        <span class="pill" id="gCounter">1 / 1</span>
+      </div>
+
+      <!-- Card -->
+      <div id="gCard" class="card" style="min-height:160px; display:grid; place-items:center; cursor:pointer; margin-top:10px;">
+        <div id="gFront" style="font-weight:700; font-size:18px; text-align:center;"></div>
+        <div id="gBack"  style="display:none; font-size:15px; color:#334155; text-align:left; line-height:1.6;"></div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress" style="margin-top:10px;"><span id="gBar"></span></div>
+      <div class="hint" id="gMeta" style="margin-top:6px"></div>
+    </div>
+
+    <!-- Quick list (click to jump) -->
+    <div class="card">
+      <h3 style="margin-top:0;">All terms</h3>
+      <div id="gList" class="grid" style="grid-template-columns:1fr 1fr; gap:6px; max-height:320px; overflow:auto;"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Quiz -->
+    <section class="panel" id="s-quiz">
+      <h2>Quick quiz</h2>
+      <div id="quizArea" class="grid"></div>
+      <div class="grid" style="grid-template-columns:auto auto auto;gap:8px;margin-top:6px">
+        <button class="btn" id="startQuiz">Start</button>
+        <button class="btn" id="submitQuiz" disabled>Submit</button>
+        <span class="pill" id="quizScore"></span>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="panel" id="s-search">
+      <h2>Search</h2>
+      <div class="grid" style="grid-template-columns:auto auto;gap:8px;margin-bottom:8px">
+        <input id="search" placeholder="Try: anti-dilution, participation, drag-along…" size="40" />
+        <button class="btn" id="goSearch">Search</button>
+      </div>
+      <div id="results" class="grid"></div>
+    </section>
+
+    <!-- 10. Negotiation Bot -->
+    <section class="panel" id="s-negotiator">
+      <h2>Negotiation Bot — Practice the Term Sheet</h2>
+    
+      <div class="grid two">
+        <!-- Left: setup and proposal builder -->
+        <div class="card soft">
+          <h3>Your role and objectives</h3>
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px">
+            <label>
+              <span class="pill">Choose your role</span>
+              <select id="nbRole" class="w-full p-2 border rounded-md bg-white">
+                <option value="founder">Founder (Mr. PGP)</option>
+                <option value="investor">Investor (ISB Capital)</option>
+              </select>
+            </label>
+            <button class="btn primary" id="nbStart">Start negotiation</button>
+          </div>
+
+          <!-- ADDED NEW CONTROLS -->
+          <div class="grid" style="grid-template-columns:1fr 1fr; gap:8px; margin-top:8px">
+            <label>
+              <span class="pill">Bot style</span>
+              <select id="nbStyle" class="w-full p-2 border rounded-md bg-white">
+                <option value="collab">Collaborative</option>
+                <option value="balanced" selected>Balanced</option>
+                <option value="hardball">Hardball</option>
+              </select>
+            </label>
+          
+            <label style="display:flex; align-items:center; gap:8px">
+              <input type="checkbox" id="nbWhy" />
+              <span class="pill">Show “Why this counter?”</span>
+            </label>
+          </div>
+          <!-- END ADDED CONTROLS -->
+    
+          <details style="margin-top:10px" id="nbYourBrief">
+            <summary><strong>Your brief (you see this)</strong></summary>
+            <div class="hint" id="nbYourBriefBody"></div>
+          </details>
+          <details style="margin-top:6px">
+            <summary><strong>How to use</strong></summary>
+            <div class="hint">
+              1) Pick your role and start. 2) Use the proposal builder to send a full term sheet offer.
+              3) The bot replies as the other side, using its own objectives. 4) Iterate until you reach “Agreed”.
+              The bot never assumes your hidden pressures; it only reasons from its own brief.
+            </div>
+          </details>
+    
+          <hr style="border:none;border-top:1px solid #e8eaf2;margin:12px 0">
+    
+          <h3>Proposal builder</h3>
+          <div class="grid three" id="nbForm">
+            <label>Post-Money Valuation
+              <select id="pmv" class="w-full p-2 border rounded-md bg-white">
+                <option>₹15</option><option>₹20</option><option>₹25</option><option>₹30</option><option>₹35</option>
+              </select>
+            </label>
+            <label>Investment (fixed)
+              <input type="text" value="₹6 crore" disabled class="w-full p-2 border rounded-md bg-gray-100">
+            </label>
+            <label>Founder Ownership (auto)
+              <input id="ownerAuto" type="text" disabled class="w-full p-2 border rounded-md bg-gray-100">
+            </label>
+    
+            <label>Liquidation Preference
+              <select id="lp" class="w-full p-2 border rounded-md bg-white">
+                <option>1× non-participating</option>
+                <option>1× participating</option>
+                <option>2× non-participating</option>
+                <option>2× participating</option>
+              </select>
+            </label>
+            <label>Anti-Dilution
+              <select id="ad" class="w-full p-2 border rounded-md bg-white">
+                <option>Weighted average</option>
+                <option>Full ratchet</option>
+                <option>None</option>
+              </select>
+            </label>
+            <label>Founder Vesting
+              <select id="vest" class="w-full p-2 border rounded-md bg-white">
+                <option>4 yrs incl. 1-yr cliff</option>
+                <option>2 yrs incl. 1-yr cliff</option>
+                <option>None</option>
+              </select>
+            </label>
+    
+            <label>Board Composition
+              <select id="board" class="w-full p-2 border rounded-md bg-white">
+                <option>1F + 1I + 1 Independent</option>
+                <option>1F + 1I + 1C + 2 Independent</option>
+                <option>1F + 2I + 2 Independent</option>
+              </select>
+            </label>
+            <label>Drag-Along
+              <select id="drag" class="w-full p-2 border rounded-md bg-white">
+                <option>Yes</option><option>No</option>
+              </select>
+            </label>
+            <label>ROFR
+              <select id="rofr" class="w-full p-2 border rounded-md bg-white">
+                <option>Yes</option><option>No</option>
+              </select>
+            </label>
+    
+            <label>Exit Timeline
+              <!-- FIXED: Renamed id="exit" to id="nb_exit" to avoid conflict with Lab 2 slider -->
+              <select id="nb_exit" class="w-full p-2 border rounded-md bg-white">
+                <option>3 years</option><option>5 years</option><option>7 years</option>
+              </select>
+            </label>
+            <label>No-Shop
+              <select id="nos" class="w-full p-2 border rounded-md bg-white">
+                <option>Yes</option><option>No</option>
+              </select>
+            </label>
+          </div>
+    
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn" id="nbSend">Send proposal</button>
+            <button class="btn" id="nbConcede">Suggest midpoint</button>
+            <button class="btn" id="nbReset">Reset</button>
+          </div>
+          <div class="hint" id="nbHelper" style="margin-top:6px"></div>
+        </div>
+    
+        <!-- Right: chat + live agreed terms -->
+        <div class="card">
+          <h3>Chat</h3>
+          <div id="nbChat" style="height:360px;overflow:auto;border:1px solid #e8eaf2;border-radius:12px;padding:10px;background:#fff"></div>
+    
+          <h3 style="margin-top:12px">Agreed terms</h3>
+          <table class="table" id="nbAgreed">
+            <tr><th>Post-Money</th><td>—</td></tr>
+            <tr><th>Investment</th><td>₹6 crore</td></tr>
+            <tr><th>Investor % (post)</th><td>—</td></tr>
+            <tr><th>Founder Ownership (post)</th><td>—</td></tr>
+            <tr><th>Liquidation Preference</th><td>—</td></tr>
+            <tr><th>Anti-Dilution</th><td>—</td></tr>
+            <tr><th>Founder Vesting</th><td>—</td></tr>
+            <tr><th>Board</th><td>—</td></tr>
+            <tr><th>Drag-Along</th><td>—</td></tr>
+            <tr><th>ROFR</th><td>—</td></tr>
+            <tr><th>Exit Timeline</th><td>—</td></tr>
+            <tr><th>No-Shop</th><td>—</td></tr>
+            <tr><th>Status</th><td><span class="pill">In negotiation</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* NAV & STEPPER */
+const SECTIONS=[
+  {id:'s-overview',t:'Overview'},
+  {id:'s-staging',t:'Staging'},
+  {id:'s-part',t:'Participation'},
+  {id:'s-wa',t:'Anti-Dilution'},
+  {id:'s-stories',t:'Stories'},
+  {id:'s-glossary',t:'Glossary'},
+  {id:'s-quiz',t:'Quiz'},
+  {id:'s-search',t:'Search'},
+  {id:'s-negotiator', t:'Negotiation Bot'} // <-- ADDED THIS
+];
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const nav=$("#nav"); SECTIONS.forEach((s,i)=>{const d=document.createElement('div'); d.className='item'; d.textContent=`${i+1}. ${s.t}`; d.onclick=()=>document.getElementById(s.id).scrollIntoView({behavior:'smooth',block:'start'}); nav.appendChild(d)});
+const st=$("#stepper"); SECTIONS.forEach((s,i)=>{const e=document.createElement('div'); e.className='step'; e.innerHTML=`<div class="dot">${i+1}</div><div>${s.t}</div>`; e.onclick=()=>document.getElementById(s.id).scrollIntoView({behavior:'smooth',block:'start'}); st.appendChild(e)});
+function highlight(){
+    const mid=window.scrollY+window.innerHeight/3; 
+    let k=0; 
+    SECTIONS.forEach((s,i)=>{
+        const el=document.getElementById(s.id);
+        if(el) { // Added null check to prevent TypeError on missing elements
+            const r=el.getBoundingClientRect(); 
+            const top=window.scrollY+r.top, bot=top+r.height; 
+            if(mid>=top&&mid<bot) k=i
+        }
+    }); 
+    $$('#stepper .step').forEach((e,i)=>e.classList.toggle('active',i===k)); 
+    $("#barProgress").style.width=((k+1)/SECTIONS.length*100).toFixed(0)+'%'}
+document.addEventListener('scroll',highlight);
+
+/* helpers */
+const money=x=>{const neg=x<0;let a=Math.abs(x);const s=a>=1e9?(a/1e9).toFixed(2)+'B':a>=1e6?(a/1e6).toFixed(2)+'M':a.toFixed(2);return(neg?'-':'')+'$'+s}
+function setText(sel,val){$(sel).textContent=val}
+
+/* Lab 1: Staging */
+function stageCalc(){
+  const X=+$("#x").value, I2=+$("#i2").value;
+  setText('#xVal',X.toFixed(1)); setText('#i2Val',I2.toFixed(1));
+  const evNowM = -11 + 0.01*1000; // M
+  const evTwoM = -X + 0.1*Math.max(0, 100 - I2); // M
+  $("#evNow").innerHTML = (evNowM>=0?'<span class="ok">':'<span class="bad">')+money(evNowM*1e6)+'</span>';
+  $("#evStaged").innerHTML = (evTwoM>=0?'<span class="ok">':'<span class="bad">')+money(evTwoM*1e6)+'</span>';
+  setText('#tX',`$${X.toFixed(1)}M`); setText('#tI2',`$${I2.toFixed(1)}M`);
+  const maxI2 = 100 - 10*X;
+  $("#stagingVerdict").innerHTML = evTwoM>=0
+    ? `<strong>Experiment makes sense.</strong> With X=${X.toFixed(1)}M, you’d still invest I₂ up to ~${maxI2.toFixed(1)}M.`
+    : `<strong>Skip the experiment at these settings.</strong> Try lowering X or I₂.`;
+}
+['x','i2'].forEach(id=>$("#"+id).addEventListener('input',stageCalc));
+
+/* Lab 2: Participation — NP explicit choice; no cap */
+function partCalc(){
+  const I=+$("#i").value, M=+$("#m").value, OWN=+$("#own").value/100, EXIT=+$("#exit").value;
+  setText('#vI',I); setText('#vM',M.toFixed(1)); setText('#vOwn',(+$("#own").value).toFixed(0)+'%'); setText('#vExit',EXIT);
+
+  const pref = M*I;
+  const asConv = OWN*EXIT;
+
+  // NP: explicit A vs B
+  const npChoice = asConv >= pref ? 'Convert to common (B)' : 'Stay preferred (A)';
+  const npPayout = Math.max(pref, asConv);
+
+  // P: pref first, then participate pro-rata on remainder
+  const base = Math.min(pref, EXIT);
+  const remainder = Math.max(0, EXIT - base);
+  const partGain = remainder * OWN;
+  const pPayout = base + partGain;
+
+  const founderNP = EXIT - npPayout;
+  const founderP  = EXIT - pPayout;
+
+  $("#npTbl").innerHTML=
+   `<tr><th>Path A: stay preferred</th><td>${money(pref*1e6)}</td></tr>
+    <tr><th>Path B: convert to common</th><td>${money(asConv*1e6)}</td></tr>
+    <tr><th>Decision</th><td><strong>${npChoice}</strong></td></tr>
+    <tr><th>Investor payout (NP)</th><td><strong>${money(npPayout*1e6)}</strong></td></tr>
+    <tr><th>Founders/common</th><td>${money(founderNP*1e6)}</td></tr>`;
+
+  $("#pTbl").innerHTML=
+   `<tr><th>Preference (first)</th><td>${money(base*1e6)}</td></tr>
+    <tr><th>Participation on remainder</th><td>${money(partGain*1e6)}</td></tr>
+    <tr><th>Investor payout (P)</th><td><strong>${money(pPayout*1e6)}</strong></td></tr>
+    <tr><th>Founders/common</th><td>${money(founderP*1e6)}</td></tr>`;
+
+  $("#partTakeaway").innerHTML =
+    (pPayout>npPayout)
+      ? `At this exit, participation pays the investor more than NP (because they take pref and then join the upside).`
+      : `At this exit, the NP “best of two” is as good or better. Try moving Exit or Ownership to see where the lines cross.`;
+}
+['i','m','own','exit'].forEach(id=>$("#"+id).addEventListener('input',partCalc));
+
+/* Lab 3: Anti-Dilution — WA from first principles vs Ratchet */
+function waCalc(){
+  const CP=+$("#cp").value, OS=+$("#os").value*1e6, OP=+$("#op").value*1e6, N$=+$("#n").value*1e6, Pn=+$("#pn").value;
+  setText('#vCP',CP.toFixed(2)); 
+  setText('#vOS',(+$("#os").value).toFixed(1)); 
+  setText('#vOP',(+$("#op").value).toFixed(1)); 
+  setText('#vN',(+$("#n").value).toFixed(0)); 
+  setText('#vPn',Pn.toFixed(2));
+
+  // WA
+  const A=OS+OP+(N$/CP), B=OS+OP+(N$/Pn);
+  const CPp=CP*(A/B);                      // new conversion price
+  const adj=CP/CPp;                        // share multiplier
+  const newAsConv=OS*adj;                  // new as-converted shares
+  const extra=newAsConv-OS;                // “make-whole” shares
+  const fmtM = x=>(x/1e6).toFixed(3);
+
+  $("#waTbl").innerHTML =
+   `<tr><th>CP′ (new)</th><td>${CPp.toFixed(4)} $/sh</td></tr>
+    <tr><th>Adjustment factor</th><td>${adj.toFixed(3)}×</td></tr>
+    <tr><th>Extra shares</th><td>${fmtM(extra)} M</td></tr>`;
+
+  // Ratchet (contrast)
+  const ratCP = Math.min(CP, Pn);
+  const ratAdj = CP/ratCP;
+  const ratNewAsConv = OS*ratAdj;
+  const ratExtra = ratNewAsConv-OS;
+
+  $("#ratTbl").innerHTML =
+   `<tr><th>CP′ (ratchet)</th><td>${ratCP.toFixed(4)} $/sh</td></tr>
+    <tr><th>Adjustment factor</th><td>${ratAdj.toFixed(3)}×</td></tr>
+    <tr><th>Extra shares</th><td>${fmtM(ratExtra)} M</td></tr>`;
+
+  $("#waTakeaway").innerHTML =
+    (ratExtra>extra)
+      ? `Ratchet shifts almost all the down-round pain to common by issuing many more make-whole shares. WA spreads the pain over the full base (old shares + pool + new money).`
+      : `With these inputs, WA and Ratchet are close. Lower P<sub>new</sub> or increase N$ to see Ratchet explode vs WA.`;
+}
+['cp','os','op','n','pn'].forEach(id=>$("#"+id).addEventListener('input',waCalc));
+
+/* Quiz */
+const QUIZ=[
+  {q:"Staging helps mainly by…",options:["Boosting valuation","Buying information before committing","Avoiding any dilution","Fixing price"],correct:1},
+  {q:"NP investor decides between:",options:["Pref vs convert; choose larger","Pref vs dividends","Debt vs equity","Ratchet vs WA"],correct:0},
+  {q:"At low exits, participation tends to:",options:["Pay less than NP","Pay more than NP (pref + pro-rata)","Be identical to NP","Invalidate prefs"],correct:1},
+  {q:"WA vs Ratchet:",options:["WA punishes more","Ratchet issues more make-whole shares","Identical","Neither changes conversion"],correct:1},
+  {q:"Drag-along is about…",options:["Blocking exits","Exit execution certainty","Pricing secondaries","IPO thresholds"],correct:1}
+];
+function buildQuiz(){const qa=$("#quizArea"); qa.innerHTML=''; QUIZ.forEach((q,i)=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div><strong>${q.q}</strong></div><div>${q.options.map((op,j)=>`<label style="display:block;margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer"><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')}</div>`; qa.appendChild(d)}); $("#submitQuiz").disabled=false; $("#quizScore").textContent=''}
+$("#startQuiz").onclick=buildQuiz;
+$("#submitQuiz").onclick=()=>{let score=0; QUIZ.forEach((q,i)=>{const c=[...document.querySelectorAll(`input[name="q${i}"]`)].find(r=>r.checked); if(c && +c.value===q.correct) score++}); $("#quizScore").textContent=`Score: ${score}/${QUIZ.length}`; $("#submitQuiz").disabled=true}
+
+/* Search */
+function doSearch(){
+  const q=$("#search").value.toLowerCase().trim(), out=$("#results"); out.innerHTML=''; 
+  if(!q) return; 
+  const res=[]; 
+  
+  // Search the consolidated GLOSSARY terms
+  GLOSSARY.forEach(c=>{
+    if(c.t.toLowerCase().includes(q)||c.d.toLowerCase().includes(q)) res.push({type:'Glossary Term',text:c.t})
+  }); 
+  
+  // Search the Quiz questions
+  QUIZ.forEach(x=>{
+    if(x.q.toLowerCase().includes(q)) res.push({type:'Quiz',text:x.q})
+  }); 
+
+  if(!res.length){out.innerHTML='<div class="muted">No matches.</div>';return} 
+  res.forEach(r=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div class="pill">${r.type}</div><div style="margin-top:6px">${r.text}</div>`; out.appendChild(d)})
+}
+$("#goSearch").onclick=doSearch; $("#search").addEventListener('keydown',e=>{if(e.key==='Enter') doSearch()});
+
+/* Init */
+(function init(){
+  document.getElementById('s-overview').scrollIntoView({behavior:'smooth',block:'start'});
+  highlight(); stageCalc(); partCalc(); waCalc();
+})();
+</script>
+
+<script>
+/* ===== Glossary Flashcards (from your lectures) ===== */
+const GLOSSARY = [
+  {t:"Convertible Preferred Stock", d:"Preferred shares that can convert into common (often at IPO/sale). Combine downside protection (preference) with upside participation via conversion."},
+  {t:"Participating Preferred", d:"At exit: investor first takes liquidation preference, then also shares pro-rata in the remainder as if converted to common."},
+  {t:"Non-Participating Preferred", d:"At exit the investor chooses: (A) take liquidation preference, or (B) convert to common and take pro-rata — whichever is larger."},
+  {t:"Liquidation Preference", d:"Priority return (e.g., 1×, 2×) paid to preferred before common in liquidation/M&A exits; may include declared but unpaid dividends."},
+  {t:"Redemption Rights", d:"Optional ‘put’ right letting investors require the company to repurchase shares after a set period — a path out of ‘living dead’ situations."},
+  {t:"Anti-Dilution: Full Ratchet", d:"If a new round prices below the old conversion price, the old conversion price resets to the new price (max protection; heavier dilution to common)."},
+  {t:"Anti-Dilution: Weighted-Average", d:"Adjusts conversion price partially using a share-weighted formula (broad-based includes option pool); spreads dilution more fairly; most common."},
+  {t:"Option Pool", d:"Unissued shares reserved for future employee options; typically included in fully-diluted share counts and WA denominators."},
+  {t:"Seniority (Liquidation Waterfall)", d:"Later rounds are usually senior; their preferences must be satisfied before earlier rounds or common receive proceeds."},
+  {t:"Drag-Along Rights", d:"If a majority approves a sale, all shareholders must join on the same terms — designed to ensure deal certainty and prevent hold-outs."},
+  {t:"Tag-Along (Co-Sale) Rights", d:"Allow minority holders to join sales by major holders on a pro-rata basis so they aren’t left behind."},
+  {t:"Right of First Refusal (ROFR)", d:"Company or existing holders get first chance to buy shares before they’re sold to outsiders."},
+  {t:"Automatic / Qualified IPO Conversion", d:"Preferred automatically converts to common upon an IPO that meets preset price and proceeds thresholds (prevents single-holder holdup)."},
+  {t:"Conversion Price", d:"Price per share used when converting preferred to common; anti-dilution adjusts this if later rounds price below it."},
+  {t:"Board Composition & Control", d:"Who appoints directors (founders, investors, independents) — determines voting dynamics and control."},
+  {t:"Voting / Super-Voting Rights", d:"Certain classes get extra votes or class votes on key matters, giving preferred disproportionate control on specified actions."},
+  {t:"Protective Provisions", d:"Investor consent required for major actions (new financing, sale, charter changes, option pool increases, etc.)."},
+  {t:"Tranching / Staging", d:"Funding in steps against milestones; investors commit more only if prior targets are met (reduces downside; adds financing risk)."},
+  {t:"IPO Ratchet", d:"If IPO prices below a set level, investors receive extra shares to at least break even at listing."},
+  {t:"Dividends (Preferred)", d:"May accrue and be paid on preference or upon conversion/exit as specified."},
+  {t:"Post-Money Valuation (PMV)", d:"Latest round price &times; fully-diluted shares. A common shorthand but ignores contract terms — can misstate ‘true’ value."},
+  {t:"Contingent Claims (VC Securities)", d:"VC instruments have option-like payoffs; valuation often requires contingent-claim methods rather than simple PMV."},
+  {t:"Seniority: Pari Passu vs. Stack", d:"Pari passu: classes share a tier equally; Stacked seniority: later series get paid first, then earlier series, then common."},
+  {t:"Pay-to-Play (context)", d:"(Mentioned in class context) Incentivizes existing investors to participate in tough rounds; penalties if they don’t."}
+];
+
+// Elements
+const gFront = document.getElementById('gFront');
+const gBack  = document.getElementById('gBack');
+const gCard  = document.getElementById('gCard');
+const gBar   = document.getElementById('gBar');
+const gMeta  = document.getElementById('gMeta');
+const gCounter = document.getElementById('gCounter');
+const gList  = document.getElementById('gList');
+const gPrev  = document.getElementById('gPrev');
+const gNext  = document.getElementById('gNext');
+const gFlip  = document.getElementById('gFlip');
+const gShuffle = document.getElementById('gShuffle');
+
+let order = [...GLOSSARY.keys()];
+let glossaryIdx = 0; 
+let flipped = false;
+
+function renderList(){
+  gList.innerHTML = '';
+  order.forEach((i, k)=>{
+    const b = document.createElement('button');
+    b.className = 'btn small';
+    b.textContent = GLOSSARY[i].t;
+    b.style.textAlign='left';
+    b.style.whiteSpace='nowrap';
+    b.style.overflow='hidden';
+    b.style.textOverflow='ellipsis';
+    b.onclick = ()=>{ glossaryIdx = k; flipped=false; draw(); }; 
+    gList.appendChild(b);
+  });
+}
+
+function draw(){
+  const item = GLOSSARY[order[glossaryIdx]]; 
+  gFront.style.display = flipped ? 'none' : 'block';
+  gBack.style.display  = flipped ? 'block' : 'none';
+  gFront.textContent = item.t;
+  gBack.textContent  = item.d;
+
+  gCounter.textContent = `${glossaryIdx+1} / ${order.length}`; 
+  gBar.style.width = `${((glossaryIdx+1)/order.length*100).toFixed(0)}%`; 
+  gMeta.textContent = flipped ? 'Showing definition. Click card or press F to flip back.' : 'Showing term. Click card or press F to see definition.';
+}
+
+function flip(){ flipped = !flipped; draw(); }
+function next(){ glossaryIdx = (glossaryIdx+1) % order.length; flipped=false; draw(); } 
+function prev(){ glossaryIdx = (glossaryIdx-1+order.length) % order.length; flipped=false; draw(); } 
+
+gFlip.onclick = flip;
+gNext.onclick = next;
+gPrev.onclick = prev;
+gCard.onclick = flip;
+document.addEventListener('keydown', e=>{
+  // Only trigger the keyboard shortcuts if the user is focused on the glossary or main body
+  if (e.key.toLowerCase()==='f') flip();
+  if (e.key==='ArrowRight') next();
+  if (e.key==='ArrowLeft') prev();
+});
+
+gShuffle.onchange = ()=>{
+  if (gShuffle.checked){
+    order.sort(()=>Math.random()-0.5);
+  } else {
+    order = [...GLOSSARY.keys()];
+  }
+  glossaryIdx=0; flipped=false; renderList(); draw(); 
+};
+
+// init
+renderList(); draw();
+</script>
+
+<script>
+/* ===== Negotiation Bot (Clause + Team Briefs) =====
+    Uses: /Team Briefs.docx and /Clause.docx
+    Behavior: You choose a role; bot plays the opposite side using its own objectives.
+              Bot never assumes your hidden pressures. It counters from its brief only.
+*/
+
+// Clause options (from Clause.docx)
+const CLAUSE = {
+  pmv: ["₹15","₹20","₹25","₹30","₹35"],
+  lp: ["1× non-participating","1× participating","2× non-participating","2× participating"],
+  ad: ["Weighted average","Full ratchet","None"],
+  vest: ["4 yrs incl. 1-yr cliff","2 yrs incl. 1-yr cliff","None"],
+  board: ["1F + 1I + 1 Independent","1F + 1I + 1C + 2 Independent","1F + 2I + 2 Independent"],
+  drag: ["Yes","No"],
+  rofr: ["Yes","No"],
+  exit: ["3 years","5 years","7 years"],
+  nos:  ["Yes","No"]
+};
+
+// Team briefs (objectives + hidden pressures kept private to that side)
+const BRIEFS = {
+  founder: {
+    public: [
+      "Raise ₹6 crore at ₹25–30 crore post-money.",
+      "Keep ≥60% combined founder ownership post-money.",
+      "Preserve control on product and hiring.",
+      "Avoid clauses that constrain future fundraising."
+    ],
+    hidden: [
+      "Cash runway ≈ 2 months.",
+      "Competing firm just announced a round.",
+      "Need to close quickly to retain engineers."
+    ],
+    // policy preferences (target → fallback)
+    policy: {
+      pmv: ["₹30","₹25","₹35","₹20","₹15"],
+      lp:  ["1× non-participating","1× participating","2× non-participating","2× participating"],
+      ad:  ["Weighted average","None","Full ratchet"],
+      vest:["2 yrs incl. 1-yr cliff","4 yrs incl. 1-yr cliff","None"],
+      board:["1F + 1I + 1 Independent","1F + 1I + 1C + 2 Independent","1F + 2I + 2 Independent"],
+      drag:["Yes","No"],
+      rofr:["Yes","No"],
+      exit:["7 years","5 years","3 years"],
+      nos: ["No","Yes"]
+    }
+  },
+  investor: {
+    public: [
+      "Invest ₹6 crore for 30–35% post-money.",
+      "Downside protection: liquidation preference and anti-dilution.",
+      "Governance discipline via board oversight.",
+      "Maintain exit flexibility."
+    ],
+    hidden: [
+      "Fund dry powder is limited; needs post-money < ₹25 crore.",
+      "Lost a similar deal last month.",
+      "LPs wary of founder-centric governance."
+    ],
+    policy: {
+      pmv: ["₹20","₹15","₹25","₹30","₹35"],
+      lp:  ["1× participating","2× participating","1× non-participating","2× non-participating"],
+      ad:  ["Full ratchet","Weighted average","None"],
+      vest:["4 yrs incl. 1-yr cliff","2 yrs incl. 1-yr cliff","None"],
+      board:["1F + 2I + 2 Independent","1F + 1I + 1C + 2 Independent","1F + 1I + 1 Independent"],
+      drag:["Yes","No"],
+      rofr:["Yes","No"],
+      exit:["3 years","5 years","7 years"],
+      nos: ["Yes","No"]
+    }
+  }
+};
+
+// UI elements
+const nbRole = document.getElementById('nbRole');
+const nbStart= document.getElementById('nbStart');
+const nbSend = document.getElementById('nbSend');
+const nbConcede = document.getElementById('nbConcede');
+const nbReset= document.getElementById('nbReset');
+const nbChat = document.getElementById('nbChat');
+const nbHelper = document.getElementById('nbHelper');
+const nbYourBriefBody = document.getElementById('nbYourBriefBody');
+
+const inputs = {
+  pmv:  document.getElementById('pmv'),
+  lp:   document.getElementById('lp'),
+  ad:   document.getElementById('ad'),
+  vest: document.getElementById('vest'),
+  board:document.getElementById('board'),
+  drag: document.getElementById('drag'),
+  rofr: document.getElementById('rofr'),
+  exit: document.getElementById('nb_exit'), // <-- FIXED: Pointing to the new unique ID
+  nos:  document.getElementById('nos'),
+  ownerAuto: document.getElementById('ownerAuto')
+};
+
+const agreedTable = document.getElementById('nbAgreed').querySelectorAll('td');
+
+let game = { you:null, bot:null, round:0, agreed:{} };
+
+// helpers
+const moneyPMV = p => Number(p.replace(/[₹,\s]/g,''));
+const investorPct = p => 6 / moneyPMV(p); // 6 crore / PMV (cr)
+const pctStr = x => (x*100).toFixed(1) + '%';
+
+function setOwnerAuto(){
+  if (inputs.pmv) { // Add null check for safety
+    const pmv = inputs.pmv.value;
+    const inv = investorPct(pmv);
+    const founders = 1 - inv; // single-investor simplification
+    if (inputs.ownerAuto) {
+        inputs.ownerAuto.value = pctStr(founders) + " (investor " + pctStr(inv) + ")";
+    }
+  }
+}
+if (inputs.pmv) {
+    inputs.pmv.addEventListener('change', setOwnerAuto); 
+    setOwnerAuto(); // Initial call
+}
+
+
+function writeChat(who, text){
+  const box = document.createElement('div');
+  box.style.margin = '6px 0';
+  box.innerHTML = `<div class="pill" style="display:inline-block;margin-bottom:4px">${who}</div><div>${text}</div>`;
+  nbChat.appendChild(box);
+  nbChat.scrollTop = nbChat.scrollHeight;
+}
+
+// FIXED: Cleaned up this function definition to remove confusing comment
+function briefHTML(side){
+  const b = BRIEFS[side];
+  const objectives = b.public.map(x=>`<li>${x}</li>`).join('');
+  const pressures = b.hidden.map(x=>`<li>${x}</li>`).join('');
+  return `<strong>Objectives</strong><ul>${objectives}</ul>
+          <em>Hidden pressures (only you see)</em><ul>${pressures}</ul>`;
+}
+
+// bot decision: rank a proposal against its policy, counter with nearest acceptable values
+function scoreChoice(policyList, offered){
+  // lower index = more preferred. If missing, push to end.
+  const idx = policyList.indexOf(offered);
+  return idx >= 0 ? idx : policyList.length;
+}
+function chooseClosest(policyList, offered){
+  // if offered is acceptable (index <= 1 preference tiers), accept; else counter with tier 0/1 nearest
+  const idx = policyList.indexOf(offered);
+  if (idx >= 0 && idx <= 1) return {accept:true, value:offered};
+  return {accept:false, value:policyList[0]};
+}
+function midpointPMV(yours, theirs){
+  const vals = CLAUSE.pmv.map(moneyPMV);
+  const a = moneyPMV(yours), b = moneyPMV(theirs);
+  const mid = Math.round((a+b)/10)*10; // to nearest ₹10 cr
+  // snap to available options
+  let best = CLAUSE.pmv[0], diff = Infinity;
+  CLAUSE.pmv.forEach(v=>{
+    const d = Math.abs(moneyPMV(v)-mid);
+    if(d<diff){diff=d;best=v;}
+  });
+  return best;
+}
+
+/* DELETED: Old, non-AI evaluateProposal function was here.
+*/
+
+function renderAgreed(a){
+  const inv = investorPct(a.pmv);
+  agreedTable[0].textContent = a.pmv;
+  agreedTable[1].textContent = "₹6 crore";
+  agreedTable[2].textContent = pctStr(inv);
+  agreedTable[3].textContent = pctStr(1-inv);
+  agreedTable[4].textContent = a.lp;
+  agreedTable[5].textContent = a.ad;
+  agreedTable[6].textContent = a.vest;
+  agreedTable[7].textContent = a.board;
+  agreedTable[8].textContent = a.drag;
+  agreedTable[9].textContent = a.rofr;
+  agreedTable[10].textContent = a.exit;
+  agreedTable[11].textContent = a.nos;
+  agreedTable[12].innerHTML = '<span class="pill" style="background:#ecfeff;border:1px solid #bae6fd;color:#026aa7">Agreed</span>';
+}
+
+// lifecycle
+if (nbStart) {
+    nbStart.addEventListener('click', ()=>{
+      game.you = nbRole.value;          // 'founder' or 'investor'
+      game.bot = game.you === 'founder' ? 'investor' : 'founder';
+      game.round = 0;
+      game.agreed = {};
+      game.history = []; // <-- NEW: Init chat history
+      nbChat.innerHTML = '';
+      nbHelper.textContent = 'Build a complete proposal and click “Send proposal”.';
+      nbYourBriefBody.innerHTML = briefHTML(game.you);
+
+      // ADDED: Reset the "Agreed terms" table
+      agreedTable.forEach((td,i)=>{ 
+        if(i===1) return; // Keep "Investment" amount
+        td.innerHTML = i===12 ? '<span class="pill">In negotiation</span>' : '—'; 
+      });
+
+      writeChat("System", `You are playing as ${game.you}. The bot will act as ${game.bot}.`);
+      writeChat(game.bot.toUpperCase(), `Thanks for sharing materials. I’m ready to review a complete term sheet proposal when you are.`);
+    });
+}
+
+if (nbReset) {
+    nbReset.addEventListener('click', ()=>{
+      nbChat.innerHTML=''; game = {you:null, bot:null, round:0, agreed:{}}; nbHelper.textContent='';
+      // UPDATED: Also reset status text to pill for consistency
+      agreedTable.forEach((td,i)=>{ 
+        if(i===1) return; // Keep "Investment" amount
+        td.innerHTML = i===12 ? '<span class="pill">In negotiation</span>' : '—'; 
+      });
+    });
+}
+
+function grabOffer(){
+  return {
+    pmv: inputs.pmv.value,
+    lp: inputs.lp.value,
+    ad: inputs.ad.value,
+    vest: inputs.vest.value,
+    board: inputs.board.value,
+    drag: inputs.drag.value,
+    rofr: inputs.rofr.value,
+    exit: inputs.exit.value,
+    nos: inputs.nos.value
+  };
+}
+
+/* DELETED: Old, non-AI nbSend listener was here.
+*/
+
+/* DELETED: Old, non-AI nbConcede listener was here.
+*/
+
+// auto-update owner %
+setOwnerAuto();
+</script>
+
+<!-- NEW SCRIPT BLOCK FOR BOT STYLE LOGIC -->
+<script>
+// ===== NEW: knobs & style model =====
+const nbStyleSel = document.getElementById('nbStyle');
+const nbWhy = document.getElementById('nbWhy');
+
+// const STYLE = { // This is defined in the previous script block, but good to remember
+//   collab:   { accept_idx: 2, stakeSlack: 0.03, counterTier: 1 }, // more accommodating
+//   balanced: { accept_idx: 1, stakeSlack: 0.015, counterTier: 0 }, // default
+//   hardball: { accept_idx: 0, stakeSlack: 0.0, counterTier: 0 }    // strict
+// };
+// function curStyle(){ return STYLE[nbStyleSel.value] || STYLE.balanced; } // Also defined above
+
+// +++++ API AND SCHEMA CONSTANTS +++++
+const apiKey = ""; // Leave blank
+const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+// Schema for the bot's JSON response
+const RESPONSE_SCHEMA = {
+    type: "OBJECT",
+    properties: {
+        "decision": { 
+            type: "STRING",
+            enum: ["ACCEPT", "COUNTER", "REJECT"] 
+        },
+        "narrative": { 
+            type: "STRING",
+            description: "Your natural language reply to the user, explaining your reasoning for the counter-offer or acceptance. Be concise and match your assigned negotiating style."
+        },
+        "counterProposal": {
+            type: "OBJECT",
+            description: "An object containing *only* the specific clauses you are countering. (e.g., {'pmv': '₹20', 'lp': '1× participating'}). If accepting, this can be empty.",
+            properties: {
+                "pmv": { type: "STRING", enum: CLAUSE.pmv },
+                "lp": { type: "STRING", enum: CLAUSE.lp },
+                "ad": { type: "STRING", enum: CLAUSE.ad },
+                "vest": { type: "STRING", enum: CLAUSE.vest },
+                "board": { type: "STRING", enum: CLAUSE.board },
+                "drag": { type: "STRING", enum: CLAUSE.drag },
+                "rofr": { type: "STRING", enum: CLAUSE.rofr },
+                "exit": { type: "STRING", enum: CLAUSE.exit },
+                "nos": { type: "STRING", enum: CLAUSE.nos }
+            }
+        }
+    },
+    required: ["decision", "narrative"]
+};
+// +++++ END CONSTANTS +++++
+
+
+// ===== REMOVED: old chooseByStyle function =====
+
+// ===== NEW: compact reasons per clause & side (used in “Why this counter?”) =====
+// const REASONS = { ... }; // This is defined in the previous script block
+
+// ===== REWIRED: evaluateProposal to use Generative AI =====
+async function evaluateProposal(botSide, offer, history) {
+    // const style = curStyle(); // Defined in previous block
+    const brief = BRIEFS[botSide];
+    
+    // 1. Create the System Prompt
+    const systemPrompt = `
+You are a negotiation bot simulating one side of a venture capital term sheet negotiation.
+Your current role is: ${botSide.toUpperCase()} (${botSide === 'founder' ? 'Mr. PGP' : 'ISB Capital'}).
+Your negotiating style is: ${nbStyleSel.value.toUpperCase()}.
+
+**CORE DIRECTIVE: YOU ARE A PACKAGE OPTIMIZER.**
+Your goal is NOT to win every clause. Your goal is to get a good *overall deal*.
+The policy preferences below are your GUIDELINES, not rigid rules.
+- Your HIGH PRIORITY items are the first 1-2 options in your policy lists (e.g., for PMV, LP, AD).
+- Your LOW PRIORITY items are the later options.
+
+**YOU MUST MAKE STRATEGIC TRADES.**
+- If the user gives you something you want (a HIGH PRIORITY item, like a good 'lp' or 'ad'), you MUST become *more flexible* on another item (like 'pmv' or 'vesting').
+- If the user's offer is balanced and reasonable *as a whole package*, even if it misses one or two of your ideal preferences, you should strongly consider ACCEPTING it, especially if your style is 'Collaborative' or 'Balanced'.
+- Do not just list what's "wrong" with an offer. Decide if the "good" parts outweigh the "bad" parts.
+
+Your public objectives are:
+${brief.public.map(x => `- ${x}`).join('\n')}
+
+Your hidden pressures (DO NOT REVEAL THESE, but let them guide your decisions) are:
+${brief.hidden.map(x => `- ${x}`).join('\n')}
+
+Your negotiating policy preferences are GUIDELINES that show what you prefer, not absolute rules:
+- PMV: ${brief.policy.pmv.join(' > ')}
+- Liquidation Pref: ${brief.policy.lp.join(' > ')}
+- Anti-Dilution: ${brief.policy.ad.join(' > ')}
+- Vesting: ${brief.policy.vest.join(' > ')}
+- Board: ${brief.policy.board.join(' > ')}
+- Drag-Along: ${brief.policy.drag.join(' > ')}
+- ROFR: ${brief.policy.rofr.join(' > ')}
+- Exit Timeline: ${brief.policy.exit.join(' > ')}
+- No-Shop: ${brief.policy.nos.join(' > ')}
+
+You are negotiating a ₹6 crore investment.
+The user will make a proposal. You must respond by evaluating the *entire package* against your objectives and policies.
+(You were already told this, but it's critical: you are empowered to make strategic concessions and trade-offs.)
+
+You MUST return a JSON object matching the provided schema.
+- If the offer is acceptable (respecting your style and the overall package), set decision: "ACCEPT".
+- If the offer is unacceptable, set decision: "COUNTER" and provide a counterProposal with *only* the clauses you want to change.
+- Your 'narrative' should be a concise, natural language response explaining your reasoning, reflecting your negotiating style.
+- If the user checks "Show 'Why this counter?'" (nbWhy.checked), your narrative should be more detailed.
+- Stick to the provided clause options. Do not invent new ones.
+`;
+
+    // 2. Create the User Prompt
+    const userPrompt = `
+Here is my proposal (Round ${game.round}):
+- Post-Money Valuation: ${offer.pmv}
+- Liquidation Preference: ${offer.lp}
+- Anti-Dilution: ${offer.ad}
+- Founder Vesting: ${offer.vest}
+- Board: ${offer.board}
+- Drag-Along: ${offer.drag}
+- ROFR: ${offer.rofr}
+- Exit Timeline: ${offer.exit}
+- No-Shop: ${offer.nos}
+
+${nbWhy.checked ? "Please explain your reasoning in detail." : "What is your response?"}
+`;
+
+    // 3. Construct the payload
+    const payload = {
+        contents: [
+            // Add history, ensuring user/model alternation
+            ...history,
+            { role: "user", parts: [{ text: userPrompt }] }
+        ],
+        systemInstruction: {
+            parts: [{ text: systemPrompt }]
+        },
+        generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: RESPONSE_SCHEMA,
+            temperature: 0.6 // Upped from 0.5 to encourage more flexible trade-offs
+        }
+    };
+
+    // 4. Make the API call
+    try {
+        // Add loading state
+        writeChat("System", "<i>Bot is thinking...</i>");
+
+        // Add exponential backoff for retries
+        let response;
+        let delay = 1000;
+        for (let i = 0; i < 5; i++) {
+            response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                break; // Success
+            } else if (response.status === 429 || response.status >= 500) {
+                // Retry on rate limit or server error
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            } else {
+                // Don't retry on bad request (400) or auth issues (401/403)
+                throw new Error(`API call failed with status: ${response.status} ${response.statusText}`);
+            }
+        }
+
+
+        if (!response || !response.ok) {
+            throw new Error(`API call failed after retries with status: ${response?.status}`);
+        }
+
+        const result = await response.json();
+        
+        const candidate = result.candidates?.[0];
+        if (candidate && candidate.content?.parts?.[0]?.text) {
+            const jsonText = candidate.content.parts[0].text;
+            const parsedJson = JSON.parse(jsonText);
+            
+            // Add to history for next turn
+            history.push({ role: "user", parts: [{ text: userPrompt }] });
+            history.push({ role: "model", parts: [{ text: jsonText }] });
+
+            return parsedJson; // This is the structured response, e.g., { decision, narrative, counterProposal }
+        } else {
+            console.warn("Invalid response structure from API:", result);
+            let errorMsg = "Invalid response structure from API.";
+            if (result.promptFeedback?.blockReason) {
+                errorMsg = `Request blocked: ${result.promptFeedback.blockReason}`;
+            }
+            throw new Error(errorMsg);
+        }
+
+    } catch (error) {
+        console.error("Error calling Gemini API:", error);
+        writeChat("System", `<strong>Error:</strong> ${error.message}. The bot is unable to respond.`);
+        return null; // Handle the error gracefully
+    } finally {
+        // Remove "Bot is thinking..."
+        const chatMessages = nbChat.querySelectorAll('div[style="margin: 6px 0;"]');
+        if (chatMessages.length > 0) {
+            const lastMsg = chatMessages[chatMessages.length - 1];
+            if (lastMsg && lastMsg.innerHTML.includes("<i>Bot is thinking...</i>")) {
+                lastMsg.remove();
+            }
+        }
+    }
+}
+
+
+// +++++ NEW FUNCTION: Post-Deal Analysis +++++
+async function analyzeDeal(agreedTerms, userRole, botRole) {
+    writeChat("System", "<i>Analyst is preparing a post-deal summary...</i>");
+
+    const systemPrompt = `
+You are a 'Deal Analyst' bot. Your task is to provide a concise, balanced, and insightful summary of a completed venture capital negotiation.
+Do not act as one of the negotiators; you are a neutral third-party expert.
+Your analysis should be in Markdown format (using *bold* and lists).
+Focus on the *long-term implications* of the key clauses, highlighting potential future benefits or frictions for both the Founder and the Investor.
+Do not just list the terms; explain *why* they matter.
+`;
+
+    const termsString = `
+- Post-Money Valuation: ${agreedTerms.pmv}
+- Liquidation Preference: ${agreedTerms.lp}
+- Anti-Dilution: ${agreedTerms.ad}
+- Founder Vesting: ${agreedTerms.vest}
+- Board: ${agreedTerms.board}
+- Drag-Along: ${agreedTerms.drag}
+- ROFR: ${agreedTerms.rofr}
+- Exit Timeline: ${agreedTerms.exit}
+- No-Shop: ${agreedTerms.nos}
+`;
+
+    const userPrompt = `
+The negotiation between the Founder (Mr. PGP) and Investor (ISB Capital) has just closed with the following agreed-upon terms:
+${termsString}
+
+Please provide a brief "Post-Deal Analysis" (around 3-4 bullet points) on the long-term implications of this deal for both parties.
+`;
+
+    const payload = {
+        contents: [
+            { role: "user", parts: [{ text: userPrompt }] }
+        ],
+        systemInstruction: {
+            parts: [{ text: systemPrompt }]
+        },
+        generationConfig: {
+            temperature: 0.7 // A bit more creative for analysis
+        }
+    };
+
+    try {
+        let response;
+        let delay = 1000;
+        for (let i = 0; i < 5; i++) {
+            response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) break;
+            if (response.status === 429 || response.status >= 500) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            } else {
+                throw new Error(`API call failed with status: ${response.status} ${response.statusText}`);
+            }
+        }
+
+        if (!response || !response.ok) {
+            throw new Error(`API call failed after retries with status: ${response?.status}`);
+        }
+
+        const result = await response.json();
+        const candidate = result.candidates?.[0];
+
+        if (candidate && candidate.content?.parts?.[0]?.text) {
+            const analysisText = candidate.content.parts[0].text;
+            writeChat("Analyst", analysisText);
+        } else {
+            let errorMsg = "Invalid analysis response structure from API.";
+            if (result.promptFeedback?.blockReason) {
+                errorMsg = `Analysis blocked: ${result.promptFeedback.blockReason}`;
+            }
+            throw new Error(errorMsg);
+        }
+
+    } catch (error) {
+        console.error("Error calling Gemini API for analysis:", error);
+        writeChat("System", `<strong>Error:</strong> ${error.message}. The analyst is unable to respond.`);
+    } finally {
+        // Remove "Bot is analyzing..."
+        const chatMessages = nbChat.querySelectorAll('div[style="margin: 6px 0;"]');
+        if (chatMessages.length > 0) {
+            const lastMsg = chatMessages[chatMessages.length - 1];
+            if (lastMsg && lastMsg.innerHTML.includes("<i>Analyst is preparing...</i>")) {
+                lastMsg.remove();
+            }
+        }
+    }
+}
+// +++++ END NEW FUNCTION +++++
+
+
+// ===== REMOVED: old formatDiffs function =====
+
+// Hook into existing send & concede handlers (call evaluateProposal → formatDiffs)
+
+(function patchHandlers(){
+  // we’ll monkey-patch the existing nbSend / nbConcede listeners if present
+  // 1) Remove existing listeners by cloning buttons
+  const nbSendNew = nbSend.cloneNode(true); nbSend.parentNode.replaceChild(nbSendNew, nbSend);
+  const nbConcedeNew = nbConcede.cloneNode(true); nbConcede.parentNode.replaceChild(nbConcedeNew, nbConcede);
+  // 2) Rebind with upgraded logic
+  nbSendNew.addEventListener('click', async ()=>{ // <-- ASYNC
+    if(!game.bot){ writeChat("System","Choose a role and click Start."); return; }
+    const offer = grabOffer();
+    const inv = investorPct(offer.pmv), founders = 1-inv;
+    writeChat("YOU", `Offer → PMV ${offer.pmv} (investor ${pctStr(inv)} / founders ${pctStr(founders)}), LP ${offer.lp}, AD ${offer.ad}, Vest ${offer.vest}, Board ${offer.board}, Drag ${offer.drag}, ROFR ${offer.rofr}, Exit ${offer.exit}, No-Shop ${offer.nos}.`);
+
+    game.round++;
+    const res = await evaluateProposal(game.bot, offer, game.history); // <-- AWAIT
+    
+    if (!res) return; // API call failed
+
+    if(res.decision === "ACCEPT"){
+      writeChat(game.bot.toUpperCase(), res.narrative);
+      renderAgreed(offer); // User's offer was accepted
+      await analyzeDeal(offer, game.you, game.bot); // <-- ADDED THIS CALL
+      return;
+    }
+    
+    // Handle counter
+    writeChat(game.bot.toUpperCase(), res.narrative);
+    // Automatically update the UI with the bot's counter-proposal
+    if (res.counterProposal) {
+        const updatedKeys = []; // <-- NEW
+        Object.entries(res.counterProposal).forEach(([key, value]) => {
+            if (inputs[key] && value) { // Check if value is not null/undefined
+                inputs[key].value = value;
+                updatedKeys.push(key.toUpperCase()); // <-- NEW
+            }
+        });
+        setOwnerAuto(); // Update derived fields
+        
+        // <-- NEW: Create the specific message -->
+        let updatedTermsString = "";
+        if (updatedKeys.length > 0) {
+            updatedTermsString = `Bot has updated ${updatedKeys.join(', ')} in the form.`;
+        } else {
+            updatedTermsString = "Bot's counter-proposal is in the chat."; // Fallback
+        }
+        writeChat("System", `<i>${updatedTermsString} Review and send again.</i>`);
+    }
+  });
+
+  // ===== FIXED: Re-structured the entire nbConcedeNew event listener =====
+  nbConcedeNew.addEventListener('click', async ()=>{ // <-- ASYNC
+    if(!game.bot){ return; } // Added safety check
+    
+    // Grab the current offer from the form
+    const offer = grabOffer();
+    const botPol = BRIEFS[game.bot].policy;
+    
+    // Calculate midpoint PMV
+    const mid = midpointPMV(offer.pmv, botPol.pmv[0]);
+    offer.pmv = mid;
+
+    // style-aware nudge on three tough terms
+    const style = curStyle();
+    ["lp","ad","board"].forEach(k=>{
+      const pref = botPol[k][Math.min(1, style.counterTier)] || botPol[k][0];
+      if(offer[k] !== pref) offer[k] = pref;
+    });
+
+    const inv = investorPct(offer.pmv), founders = 1-inv;
+    writeChat("YOU", `(Suggesting Midpoint) Revised offer → PMV ${offer.pmv} (investor ${pctStr(inv)} / founders ${pctStr(founders)}), with movement on LP/AD/Board.`);
+    
+    game.round++;
+    // Await is now correctly inside the async function
+    const res = await evaluateProposal(game.bot, offer, game.history); 
+
+    if (!res) return; // API call failed
+
+    if(res.decision === "ACCEPT"){
+      writeChat(game.bot.toUpperCase(), res.narrative);
+      renderAgreed(offer);
+      await analyzeDeal(offer, game.you, game.bot); // Await is inside
+      return; 
+    } else {
+      writeChat(game.bot.toUpperCase(), res.narrative);
+      // Update UI with bot's counter
+      if (res.counterProposal) {
+          const updatedKeys = []; 
+          Object.entries(res.counterProposal).forEach(([key, value]) => {
+              if (inputs[key] && value) { 
+                  inputs[key].value = value;
+                  updatedKeys.push(key.toUpperCase()); 
+              }
+          });
+          setOwnerAuto(); // Update derived fields
+
+          let updatedTermsString = "";
+          if (updatedKeys.length > 0) {
+              updatedTermsString = `Bot has updated ${updatedKeys.join(', ')} in the form.`;
+          } else {
+              updatedTermsString = "Bot's counter-proposal is in the chat."; // Fallback
+          }
+          writeChat("System", `<i>${updatedTermsString} Review and send again.</i>`);
+      }
+    }
+  });
+})();
+</script>
+
+<!-- ADDED KaTeX JS scripts for math rendering (FIXED xintegrity -> integrity) -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" xintegrity="sha384-hIoBPJpTadxQG8/aV4zVj7gSdpE/vMGRd12Hk/B2M7Vj/A/qO/MlgwE2hEADSxQ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" xintegrity="sha384-fN6FaY2bdcg1/hVbB5U_k/RTLK8YvQ9A+1c/3gQG5G/f0JitV/vKjP8pT1F/wCD" crossorigin="anonymous"></script>
+<script>
+  // ADDED KaTeX initialization
+  document.addEventListener("DOMContentLoaded", function() {
+    // Safety check for auto-render function
+    if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ]
+        });
+    } else {
+        console.error("KaTeX auto-render script not loaded");
+    }
+  });
+</script>
+
+</body>
+</html>
+
